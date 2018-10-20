@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DoorMove : MonoBehaviour
 {
-    [SerializeField]
     private DoorTrigger m_doorTrigger;
 
     private BoxCollider m_boxCollider;
@@ -24,6 +23,7 @@ public class DoorMove : MonoBehaviour
         {
             m_boxCollider.enabled = false;
             m_meshRenderer.enabled = false;
+            
         }
         else if (!m_doorTrigger.playerInRange && !m_boxCollider.enabled && !m_meshRenderer.enabled)
         {
