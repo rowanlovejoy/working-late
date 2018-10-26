@@ -5,30 +5,25 @@ using UnityEngine;
 public class DoorMove : MonoBehaviour
 {
     private DoorTrigger m_doorTrigger;
-
-    private BoxCollider m_boxCollider;
-    private MeshRenderer m_meshRenderer;
+    private Animator m_animator;
 
     private void Awake()
     {
         m_doorTrigger = GameObject.Find("DoorTrigger").GetComponent<DoorTrigger>();
-        m_boxCollider = GetComponent<BoxCollider>();
-        m_meshRenderer = GetComponent<MeshRenderer>();
+        m_animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-		if (m_doorTrigger.playerInRange && m_boxCollider.enabled && m_meshRenderer.enabled)
+		if (m_doorTrigger.playerInRange)
         {
-            m_boxCollider.enabled = false;
-            m_meshRenderer.enabled = false;
+            m_animator.SetBool("playerInRange", true);
             
         }
-        else if (!m_doorTrigger.playerInRange && !m_boxCollider.enabled && !m_meshRenderer.enabled)
+        else
         {
-            m_boxCollider.enabled = true;
-            m_meshRenderer.enabled = true;
+            m_animator.SetBool("playerInRange", false);
         }
-	}
+    }
 }
