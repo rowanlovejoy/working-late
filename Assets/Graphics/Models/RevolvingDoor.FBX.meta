@@ -9,7 +9,11 @@ ModelImporter:
     400000: Chamber
     400002: Door
     400004: //RootNode
-    2100000: No Name
+    2100000: 'Material #65'
+    2100002: 'Material #71'
+    2100004: 'Material #72'
+    2100006: 'Material #66'
+    2100008: 'Material #67'
     2300000: Chamber
     2300002: Door
     3300000: Chamber
