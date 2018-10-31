@@ -35,7 +35,11 @@ public class PlayerMove : MonoBehaviour
         Vector3 _forwardMovement = transform.forward * _verticalInput;
         Vector3 _rightMovement = transform.right * _horizInput;
 
+        Vector3 _movementVector = Vector3.ClampMagnitude(_forwardMovement + _rightMovement, 1.0f);
+
         // Uses CharacterController component to move player based on forward and right vectors.
-        m_charController.SimpleMove(Vector3.ClampMagnitude(_forwardMovement + _rightMovement, 1.0f) * m_movementSpeed);
+        m_charController.SimpleMove(_movementVector * m_movementSpeed);
     }
+
+ 
 }
