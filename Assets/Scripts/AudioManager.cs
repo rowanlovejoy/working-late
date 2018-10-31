@@ -31,6 +31,8 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
 
+    private List<string> m_currentlyPlayingSounds = new List<string>();
+
     [SerializeField]
     private Sound[] sounds;
 
@@ -72,6 +74,7 @@ public class AudioManager : MonoBehaviour
                 if (sounds[i] != null && !sounds[i].source.isPlaying)
                 {
                     sounds[i].source.Play();
+                    m_currentlyPlayingSounds.Add(_name);
                 }
                 else if (sounds[i].source.isPlaying)
                 {
@@ -94,6 +97,14 @@ public class AudioManager : MonoBehaviour
                 if (sounds[i].source.isPlaying)
                 {
                     sounds[i].source.Stop();
+                    if (m_currentlyPlayingSounds.Contains(_name))
+                    {
+                        m_currentlyPlayingSounds.Remove(_name);
+                    }
+                }
+                else
+                {
+                    Debug.Log("Sound: " + _name + " is not playing");
                 }
             }
         }

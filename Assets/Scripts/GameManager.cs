@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     private string m_playerLocation;
+    private string m_prevPlayerLocation;
+
+    public delegate void LocationChange();
+    public static event LocationChange LocationChanged;
 
     private void Awake()
     {
@@ -29,10 +33,23 @@ public class GameManager : MonoBehaviour
 
         set
         {
-            if (value != null && value != "")
+            if (value != null && value != "" && value != m_playerLocation)
             {
+                m_prevPlayerLocation = m_playerLocation;
                 m_playerLocation = value;
+                if (LocationChanged != null)
+                {
+                    LocationChanged();
+                }
             }
+        }
+    }
+
+    public string PrevPlayerLocation
+    {
+        get
+        {
+            return m_prevPlayerLocation;
         }
     }
 

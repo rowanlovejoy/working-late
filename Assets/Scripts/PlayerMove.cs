@@ -14,9 +14,21 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     private float m_movementSpeed = 10.0f; // Controls how quickly the player moves in a direction
 
+    private string m_movementSound;
+
     private void Awake()
     {
         m_charController = GetComponent<CharacterController>(); // Gets and stores a reference to the player character's CharacterController component
+    }
+
+    private void OnEnable()
+    {
+        GameManager.LocationChanged += ChangeMovementSound;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.LocationChanged -= ChangeMovementSound;
     }
 
     private void Update()
@@ -39,7 +51,25 @@ public class PlayerMove : MonoBehaviour
 
         // Uses CharacterController component to move player based on forward and right vectors.
         m_charController.SimpleMove(_movementVector * m_movementSpeed);
+
+        MovementSound(_movementVector);
     }
 
- 
+    void ChangeMovementSound()
+    {
+        m_movementSound = GameManager.instance.PlayerLocation + "Footsteps";
+    }
+
+    void MovementSound(Vector3 _movementVector)
+    {
+        if (_movementVector != Vector3.zero)
+        {
+            AudioManager.instance.Stop(GameManager.instance.PrevPlayerLocation + "Footsteps");
+            AudioManager.instance.Play(m_movementSound);
+        }
+        else
+        {
+            AudioManager.instance.Stop(m_movementSound);
+        }
+    }
 }
