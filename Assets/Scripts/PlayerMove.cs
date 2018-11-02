@@ -57,6 +57,7 @@ public class PlayerMove : MonoBehaviour
 
     void ChangeMovementSound()
     {
+        AudioManager.instance.Stop(GameManager.instance.PrevPlayerLocation + "Footsteps");
         m_movementSound = GameManager.instance.PlayerLocation + "Footsteps";
     }
 
@@ -64,7 +65,6 @@ public class PlayerMove : MonoBehaviour
     {
         if (_movementVector != Vector3.zero)
         {
-            AudioManager.instance.Stop(GameManager.instance.PrevPlayerLocation + "Footsteps");
             AudioManager.instance.Play(m_movementSound);
         }
         else

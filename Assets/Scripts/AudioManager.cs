@@ -59,6 +59,7 @@ public class AudioManager : MonoBehaviour
         {
             sounds[i].source = gameObject.AddComponent<AudioSource>();
             sounds[i].source.clip = sounds[i].clip;
+            sounds[i].source.volume = sounds[i].volume;
             sounds[i].source.pitch = sounds[i].pitch;
             sounds[i].source.loop = sounds[i].loop;
             sounds[i].source.playOnAwake = sounds[i].playOnAwake;
@@ -123,4 +124,23 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+    public void StopAll()
+    {
+        for (int i = 0; i < sounds.Length; i++)
+        {
+            if (sounds[i].source.isPlaying)
+            {
+                sounds[i].source.Stop();
+            }
+        }
+
+        Debug.Log("All audio stopped");
+    }
+
+    public void FadeOutSound(string _sound, float _fadeOutDuration)
+    {
+
+    }
+
 }

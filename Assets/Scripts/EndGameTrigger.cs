@@ -14,7 +14,6 @@ public class EndGameTrigger : MonoBehaviour {
         m_fading = GameObject.Find("GameManager").GetComponent<Fading>();
     }
 
-
     void EndGame()
     {
         SceneManager.LoadScene("MainMenuScene");
@@ -23,8 +22,8 @@ public class EndGameTrigger : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Demo ending shortly");
-        m_interiorLightAnimator.SetBool("blowLight", true);
+        //m_interiorLightAnimator.SetBool("blowLight", true);
         float _fadeTime = m_fading.BeginFade(1);
-        Invoke("EndGame", _fadeTime + 3.0f);
+        Invoke("EndGame", _fadeTime + 4.0f);
     }
 }

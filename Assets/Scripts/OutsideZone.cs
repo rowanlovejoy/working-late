@@ -9,5 +9,7 @@ public class OutsideZone : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         GameManager.instance.PlayerLocation = LOCATIONNAME;
+        AudioManager.instance.Stop("InteriorAmbiance");
+        AudioManager.instance.Play("ExteriorAmbiance");
     }
 }

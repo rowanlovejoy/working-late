@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.None;
+        AudioManager.instance.StopAll();
     }
 
     public void StartDemo()
@@ -18,5 +19,10 @@ public class MainMenu : MonoBehaviour
     public void ExitDemo()
     {
         Application.Quit();
+    }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("CreditsScene");
     }
 }
