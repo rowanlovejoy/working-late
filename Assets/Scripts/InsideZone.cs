@@ -9,12 +9,13 @@ public class InsideZone : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         GameManager.instance.PlayerLocation = LOCATIONNAME;
-        Invoke("StopOutsideAudio", 1.0f);
+        Invoke("StopOutsideAudio", 0.75f);
         AudioManager.instance.Play("InteriorAmbiance");
     }
 
     void StopOutsideAudio()
     {
         AudioManager.instance.Stop("ExteriorAmbiance");
+        AudioManager.instance.Stop("RevolvingDoor");
     }
 }

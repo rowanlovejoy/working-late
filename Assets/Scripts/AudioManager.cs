@@ -11,22 +11,22 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     [System.Serializable]
-    private class Sound
+    class Sound
     {
-        public string name;
+        public string name = null;
 
-        public AudioClip clip;
+        public AudioClip clip = null;
 
         [Range(0.0f, 1.0f)]
         public float volume = 1.0f;
-        [Range(-3.0f, 3.0f)]
+        [Range(0.1f, 3f)]
         public float pitch = 1.0f;
 
         public bool loop = false;
         public bool playOnAwake = false;
 
         [HideInInspector]
-        public AudioSource source;
+        public AudioSource source = null;
     }
 
     public static AudioManager instance;
@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
     private List<string> m_currentlyPlayingSounds = new List<string>();
 
     [SerializeField]
-    private Sound[] sounds;
+    private Sound[] m_sounds;
 
     private void Awake()
     {
@@ -55,29 +55,31 @@ public class AudioManager : MonoBehaviour
 
     private void AddSounds()
     {
-        for (int i = 0; i < sounds.Length; i++)
+        for (int i = 0; i < m_sounds.Length; i++)
         {
-            sounds[i].source = gameObject.AddComponent<AudioSource>();
-            sounds[i].source.clip = sounds[i].clip;
-            sounds[i].source.volume = sounds[i].volume;
-            sounds[i].source.pitch = sounds[i].pitch;
-            sounds[i].source.loop = sounds[i].loop;
-            sounds[i].source.playOnAwake = sounds[i].playOnAwake;
+            m_sounds[i].source = gameObject.AddComponent<AudioSource>();
+            m_sounds[i].source.clip = m_sounds[i].clip;
+            m_sounds[i].source.volume = m_sounds[i].volume;
+            m_sounds[i].source.pitch = m_sounds[i].pitch;
+            m_sounds[i].source.loop = m_sounds[i].loop;
+            m_sounds[i].source.playOnAwake = m_sounds[i].playOnAwake;
         }
     }
 
     public void Play(string _name)
     {
-        for (int i = 0; i < sounds.Length; i++)
+        for (int i = 0; i < m_sounds.Length; i++)
         {
-            if (sounds[i].name == _name)
+            if (m_sounds[i].name == _name)
             {
-                if (sounds[i] != null && !sounds[i].source.isPlaying)
+                if (m_sounds[i].source != null && !m_sounds[i].source.isPlaying)
                 {
-                    sounds[i].source.Play();
+                    m_sounds[i].source.Play();
+                    Debug.Log("Playing audio: " + _name);
                     m_currentlyPlayingSounds.Add(_name);
+                    Debug.Log("Audio added: " + _name);
                 }
-                else if (sounds[i].source.isPlaying)
+                else if (m_sounds[i].source.isPlaying)
                 {
                     Debug.Log("Sound: " + _name + " is already playing");
                 }
@@ -91,16 +93,18 @@ public class AudioManager : MonoBehaviour
 
     public void Stop(string _name)
     {
-        for (int i = 0; i < sounds.Length; i++)
+        for (int i = 0; i < m_sounds.Length; i++)
         {
-            if (sounds[i].name == _name)
+            if (m_sounds[i].name == _name)
             {
-                if (sounds[i].source.isPlaying)
+                if (m_sounds[i].source.isPlaying)
                 {
-                    sounds[i].source.Stop();
+                    m_sounds[i].source.Stop();
+                    Debug.Log("Audio Stopped: " + _name);
                     if (m_currentlyPlayingSounds.Contains(_name))
                     {
                         m_currentlyPlayingSounds.Remove(_name);
+                        Debug.Log("Audio Removed: " + _name);
                     }
                 }
                 else
@@ -113,13 +117,14 @@ public class AudioManager : MonoBehaviour
 
     public void Pause(string _name)
     {
-        for (int i = 0; i < sounds.Length; i++)
+        for (int i = 0; i < m_sounds.Length; i++)
         {
-            if (sounds[i].name == _name)
+            if (m_sounds[i].name == _name)
             {
-                if (sounds[i].source.isPlaying)
+                if (m_sounds[i].source.isPlaying)
                 {
-                    sounds[i].source.Pause();
+                    m_sounds[i].source.Pause();
+                    Debug.Log("Sound: " + _name + " paused");
                 }
             }
         }
@@ -127,20 +132,15 @@ public class AudioManager : MonoBehaviour
 
     public void StopAll()
     {
-        for (int i = 0; i < sounds.Length; i++)
+        for (int i = 0; i < m_sounds.Length; i++)
         {
-            if (sounds[i].source.isPlaying)
+            if (m_sounds[i].source.isPlaying)
             {
-                sounds[i].source.Stop();
+                m_sounds[i].source.Stop();
+                m_currentlyPlayingSounds.Clear();
             }
         }
 
         Debug.Log("All audio stopped");
     }
-
-    public void FadeOutSound(string _sound, float _fadeOutDuration)
-    {
-
-    }
-
 }

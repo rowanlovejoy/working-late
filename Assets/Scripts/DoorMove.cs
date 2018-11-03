@@ -19,11 +19,12 @@ public class DoorMove : MonoBehaviour
 		if (m_doorTrigger.playerInRange)
         {
             m_animator.SetBool("playerInRange", true);
-            
+            AudioManager.instance.Play("RevolvingDoor");
         }
         else
         {
             m_animator.SetBool("playerInRange", false);
+            AudioManager.instance.Stop("RevolvingDoor");
         }
     }
 }

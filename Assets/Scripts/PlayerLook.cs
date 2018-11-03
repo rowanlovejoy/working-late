@@ -31,7 +31,9 @@ public class PlayerLook : MonoBehaviour
     // Locks the player's cursor to the centre of the screen and hides it from view
     private void LockCursor()
     {
+        Cursor.lockState = CursorLockMode.None;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Rotates the player's view based on their mouse cursor's movement

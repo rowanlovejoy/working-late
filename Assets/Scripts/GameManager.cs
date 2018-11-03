@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    private Fading m_fading;
 
     private string m_playerLocation;
     private string m_prevPlayerLocation;
@@ -21,6 +24,27 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+
+        m_fading = gameObject.GetComponent<Fading>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            QuitGame();
+        }
+
+        if (SceneManager.GetActiveScene().name == "MainMenuScene")
+        {
+            m_fading.enabled = false;
+        }
+        else
+        {
+            m_fading.enabled = true;
         }
     }
 
