@@ -40,12 +40,24 @@ public class GameManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "MainMenuScene")
         {
-            m_fading.enabled = false;
+            if (m_fading.enabled)
+            {
+                m_fading.enabled = false;
+                Debug.Log("Fading disabled");
+            }
         }
         else
         {
-            m_fading.enabled = true;
+            if (!m_fading.enabled)
+            {
+                m_fading.enabled = true;
+                m_fading.ResetFade();
+                Debug.Log("Fading enabled");
+            }
         }
+
+        Debug.Log("Current scene: " + SceneManager.GetActiveScene().name);
+
     }
 
     public string PlayerLocation

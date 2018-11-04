@@ -2790,6 +2790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInRange: 0
+  m_triggerEnabled: 1
 --- !u!65 &1559481316
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2810,7 +2811,7 @@ Transform:
   m_GameObject: {fileID: 1559481314}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -4.39, y: -1.34, z: -1.1}
-  m_LocalScale: {x: 6, y: 10, z: 5}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 1966321281}
   m_RootOrder: 1

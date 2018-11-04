@@ -15,6 +15,8 @@ public class Fading : MonoBehaviour
     [SerializeField]
     private int m_fadeDir = -1;
 
+    private bool m_enableFade = false;
+
     private void OnGUI()
     {
         m_alpha += m_fadeDir * m_fadeSpeed * Time.deltaTime;
@@ -22,12 +24,27 @@ public class Fading : MonoBehaviour
 
         GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, m_alpha);
         GUI.depth = m_drawDepth;
-        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), m_fadeOutTexture);
+
+        if (m_enableFade)
+        {
+            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), m_fadeOutTexture);
+        }
     }
 
     public float BeginFade(int _direction)
     {
         m_fadeDir = _direction;
         return m_fadeSpeed;
+    }
+
+    public void ResetFade()
+    {
+        m_alpha = 0.0f;
+        m_fadeDir = -1;
+    }
+
+    public void SetFade(bool _state)
+    {
+        m_enableFade = _state;
     }
 }
